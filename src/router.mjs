@@ -26,6 +26,7 @@ router.get('/login', async (ctx) => {
     const nonce = crypto.randomUUID();
     const state = crypto.randomBytes(16).toString('hex');
 
+    ctx.session = ctx.session || {}; // Ensure session exists
     ctx.session.auth = { nonce, state, code_verifier };
 
     const authorizationUrl = client.authorizationUrl({
@@ -57,7 +58,7 @@ router.get('/callback', async (ctx) => {
         userinfo_encrypted_response_alg: 'ECDH-ES+A256KW',
         userinfo_encrypted_response_enc: 'A256GCM',
       },
-      { keys: [config.KEYS.PRIVATE_SIG_KEY, config.KEYS.PRIVATE_ENC_KEY] }
+      { keys: [config.KEYS.PRIVATE_SIG_KEY] }
     );
 
     const params = ctx.query; // Authorization code

@@ -30,4 +30,11 @@ export default {
       use: 'enc',
     },
   },
+
+  validateConfig: () => {
+    if (!process.env.CLIENT_ID) throw new Error('CLIENT_ID is missing');
+    if (!process.env.PRIVATE_SIG_KEY_D || !process.env.PRIVATE_ENC_KEY_D) {
+      throw new Error('Private keys are missing in environment variables');
+    }
+  },
 };
