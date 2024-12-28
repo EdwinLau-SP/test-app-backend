@@ -30,6 +30,8 @@ app.use(
   })
 );
 
+app.proxy = true; // Trust proxy headers
+
 // Session store to persist session data
 function createInMemorySessionStore() {
   const map = new Map();
