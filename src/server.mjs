@@ -6,6 +6,12 @@ import logger from 'koa-logger';
 import session from 'koa-session';
 import cors from 'koa2-cors';
 
+const PORT = process.env.PORT || 8080; // 8080 is a fallback for local testing
+
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
+
 function createInMemorySessionStore() {
   const map = new Map();
   return {
