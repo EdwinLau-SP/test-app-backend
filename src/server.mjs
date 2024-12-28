@@ -1,6 +1,6 @@
-import { router } from '../src/router.mjs';
+import { router } from './router.mjs';
 import * as crypto from 'crypto';
-import config from '../src/config.mjs';
+import config from './config.mjs';
 import Koa from 'koa';
 import logger from 'koa-logger';
 import session from 'koa-session';
