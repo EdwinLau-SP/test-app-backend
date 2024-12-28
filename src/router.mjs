@@ -1,6 +1,6 @@
 import config from './config.mjs';
 import { Issuer, generators } from 'openid-client';
-import * as crypto from 'crypto';
+import * as crypto from 'node:crypto';
 import Router from 'koa-router';
 
 const router = new Router();
@@ -41,6 +41,42 @@ router.get('/login', async (ctx) => {
   } catch (err) {
     console.error('Login Error:', err);
     ctx.body = 'Failed to initiate login.';
+  }
+});
+
+// Callback endpoint
+router.get('/callback', async (ctx) => {
+  try {
+    const issuer = await Issuer.discover(config.ISSUER_URL);
+    const client = new issuer.Client(
+      {
+        client_id: config.CLIENT_ID,
+        response_types: ['code'],
+        token_endpoint_auth_method: 'private_key_jwt',
+        id_token_signed_response_alg: 'ES256',
+        userinfo_encrypted_response_alg: 'ECDH-ES+A256KW',
+        userinfo_encrypted_response_enc: 'A256GCM',
+      },
+      { keys: [config.KEYS.PRIVATE_SIG_KEY, config.KEYS.PRIVATE_ENC_KEY] }
+    );
+
+    const params = ctx.query; // Authorization code
+    console.log('Callback Params:', params);
+
+    const tokenSet = await client.callback(config.REDIRECT_URI, params, {
+      code_verifier: ctx.session.auth.code_verifier,
+    });
+
+    console.log('TokenSet:', tokenSet);
+
+    // Fetch user info
+    const userinfo = await client.userinfo(tokenSet.access_token);
+    console.log('Userinfo:', userinfo);
+
+    ctx.body = userinfo; // Send user info as response
+  } catch (err) {
+    console.error('Callback Error:', err);
+    ctx.body = 'Failed to process callback.';
   }
 });
 
