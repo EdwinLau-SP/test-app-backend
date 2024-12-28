@@ -43,3 +43,5 @@ router.get('/login', async (ctx) => {
     ctx.body = 'Failed to initiate login.';
   }
 });
+
+export { router };
