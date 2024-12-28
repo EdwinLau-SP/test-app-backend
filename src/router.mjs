@@ -18,7 +18,7 @@ router.get('/login', async (ctx) => {
         userinfo_encrypted_response_alg: 'ECDH-ES+A256KW',
         userinfo_encrypted_response_enc: 'A256GCM',
       },
-      { keys: [config.KEYS.PRIVATE_SIG_KEY, config.KEYS.PRIVATE_ENC_KEY] }
+      { keys: [config.KEYS.PRIVATE_SIG_KEY] }
     );
 
     const code_verifier = generators.codeVerifier();
@@ -79,6 +79,11 @@ router.get('/callback', async (ctx) => {
     console.error('Callback Error:', err);
     ctx.body = 'Failed to process callback.';
   }
+});
+
+router.get('/health', (ctx) => {
+  ctx.status = 200; // Return HTTP 200 OK
+  ctx.body = { status: 'ok' };
 });
 
 export { router };

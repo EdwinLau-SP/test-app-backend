@@ -11,6 +11,9 @@ const app = new Koa();
 
 // Dynamic PORT for Render
 const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 // Logging middleware for debugging
 app.use(async (ctx, next) => {
@@ -45,7 +48,7 @@ app.use(
       store: createInMemorySessionStore(),
       sameSite: 'lax',
       httpOnly: true,
-      secure: true, // Only allow HTTPS cookies
+      secure: process.env.NODE_ENV === 'production', // Only secure in production
     },
     app
   )
@@ -53,8 +56,3 @@ app.use(
 
 // Routes
 app.use(router.routes());
-
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
