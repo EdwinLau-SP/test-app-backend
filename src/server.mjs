@@ -15,6 +15,11 @@ function createInMemorySessionStore() {
   };
 }
 
+const PORT = process.env.PORT || 3080;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
 const app = new Koa();
 
 // Logging and CORS
