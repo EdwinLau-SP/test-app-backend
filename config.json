@@ -1,0 +1,45 @@
+{
+  "SERVER_PORT": 3080,
+  "CLIENT_ID": "SIx6Zmyq7z63i0CRs3uxKh3BdhSOgL0m",
+  "ISSUER_URL": "https://stg-id.singpass.gov.sg",
+  "REDIRECT_URI": "https://test-app-backend-f14x37si5-edwins-projects-1bf89477.vercel.app/callback",
+  "SCOPES": "openid uinfin name",
+  "KEYS": {
+    "PRIVATE_SIG_KEY": {
+      "alg": "ES256",
+      "kty": "EC",
+      "x": "T2vEwxI_HX9Uc_2Vdw30axE6uQH2bC776FUmXhPXJrY",
+      "y": "_vSE_L0nt3d0T4YzOgin9VYqN0pLxXTXokLu_pqOmjk",
+      "crv": "P-256",
+      "d": "Fl9IlY5vCG3ajUgWMlBkq-bUIolQXejEPR3Y5_kHsPA",
+      "kid": "edwin-sig-key"
+    },
+    "PRIVATE_ENC_KEY": {
+      "alg": "ECDH-ES+A256KW",
+      "kty": "EC",
+      "x": "-23chwtrxJTrNhQOFHhXprls1PxNN6EdmPKlXPQ5c34",
+      "y": "IBWL09dn7H4PwnKgxyGndQPV8gJX1uf5nKzY2WJ-q2s",
+      "crv": "P-256",
+      "d": "Ok9Cb8zX0jcbBKedHszGYUNV3ouKAfNHT8Gb3YbxLWQ",
+      "kid": "edwin-enc-key"
+    },
+    "PUBLIC_SIG_KEY": {
+      "alg": "ES256",
+      "kty": "EC",
+      "x": "T2vEwxI_HX9Uc_2Vdw30axE6uQH2bC776FUmXhPXJrY",
+      "y": "_vSE_L0nt3d0T4YzOgin9VYqN0pLxXTXokLu_pqOmjk",
+      "crv": "P-256",
+      "use": "sig",
+      "kid": "edwin-sig-key"
+    },
+    "PUBLIC_ENC_KEY": {
+      "alg": "ECDH-ES+A256KW",
+      "kty": "EC",
+      "x": "-23chwtrxJTrNhQOFHhXprls1PxNN6EdmPKlXPQ5c34",
+      "y": "IBWL09dn7H4PwnKgxyGndQPV8gJX1uf5nKzY2WJ-q2s",
+      "crv": "P-256",
+      "use": "enc",
+      "kid": "edwin-enc-key"
+    }
+  }
+}
