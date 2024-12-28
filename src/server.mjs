@@ -6,22 +6,11 @@ import logger from 'koa-logger';
 import session from 'koa-session';
 import cors from 'koa2-cors';
 
-const PORT = process.env.PORT || 8080; // 8080 is a fallback for local testing
-
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
-
-function createInMemorySessionStore() {
-  const map = new Map();
-  return {
-    get: map.get.bind(map),
-    set: map.set.bind(map),
-    destroy: map.delete.bind(map),
-  };
-}
-
+// Create Koa app FIRST
 const app = new Koa();
+
+// Define dynamic PORT
+const PORT = process.env.PORT || 8080;
 
 // Logging and CORS
 app.use(logger());
@@ -32,11 +21,24 @@ app.use(
   })
 );
 
+// Session Store
+function createInMemorySessionStore() {
+  const map = new Map();
+  return {
+    get: map.get.bind(map),
+    set: map.set.bind(map),
+    destroy: map.delete.bind(map),
+  };
+}
+
+// Setup session
 app.keys = [crypto.randomBytes(8).toString('hex')];
 app.use(session({ store: createInMemorySessionStore(), sameSite: 'lax', httpOnly: true }, app));
+
+// Routes
 app.use(router.routes());
 
-// Export as handler for Vercel
-export default async function handler(req, res) {
-  await app.callback()(req, res);
-}
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
