@@ -1,23 +1,33 @@
-// IMPORTANT NOTE:
-//
-// Please DO NOT hardcode private keys in your code.
-// Private keys are secrets. Store private keys in a safe place (e.g. SecretsManager, Vault, ...).
-// The below private keys are hardcoded here for the convenience of the demo.
-// Please DO NOT hardcode private keys in your code.
+import * as dotenv from 'dotenv';
+dotenv.config(); // Load environment variables
 
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+export default {
+  ISSUER_URL: process.env.ISSUER_URL || 'https://stg-id.singpass.gov.sg',
+  CLIENT_ID: process.env.CLIENT_ID,
+  REDIRECT_URI: process.env.REDIRECT_URI || 'http://localhost:3000/callback',
+  SCOPES: process.env.SCOPES || 'openid uinfin name',
 
-const __filename = fileURLToPath(import.meta.url);
-let config;
-
-try {
-  config = JSON.parse(fs.readFileSync(path.join(__filename, '../../config.json')));
-  console.info('[INFO]: config is imported.');
-} catch (e) {
-  config = {};
-  console.error('[ERROR]: facing error when parsing config.', e);
-}
-
-export default config;
+  // Private Signing Key
+  KEYS: {
+    PRIVATE_SIG_KEY: {
+      alg: 'ES256',
+      kty: 'EC',
+      crv: 'P-256',
+      d: process.env.PRIVATE_SIG_KEY_D, // Private Key for signing
+      x: process.env.PRIVATE_SIG_KEY_X,
+      y: process.env.PRIVATE_SIG_KEY_Y,
+      kid: process.env.PRIVATE_SIG_KEY_ID,
+      use: 'sig',
+    },
+    PRIVATE_ENC_KEY: {
+      alg: 'ECDH-ES+A256KW',
+      kty: 'EC',
+      crv: 'P-256',
+      d: process.env.PRIVATE_ENC_KEY_D, // Private Key for encryption
+      x: process.env.PRIVATE_ENC_KEY_X,
+      y: process.env.PRIVATE_ENC_KEY_Y,
+      kid: process.env.PRIVATE_ENC_KEY_ID,
+      use: 'enc',
+    },
+  },
+};
