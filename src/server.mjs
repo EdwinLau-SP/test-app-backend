@@ -3,6 +3,7 @@ import logger from 'koa-logger';
 import session from 'koa-session';
 import cors from 'koa2-cors';
 import { router } from './router.mjs';
+import crypto from 'node:crypto';
 
 const app = new Koa();
 const PORT = process.env.PORT || 8080;
