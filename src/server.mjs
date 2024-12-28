@@ -25,7 +25,7 @@ app.use(async (ctx, next) => {
 app.use(logger());
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    origin: process.env.FRONTEND_URL || 'https://edwinlau-first-webapp.netlify.app',
     credentials: true,
   })
 );
@@ -48,7 +48,8 @@ app.use(
       store: createInMemorySessionStore(),
       sameSite: 'lax',
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Only secure in production
+      secure: false,
+      // secure: process.env.NODE_ENV === 'production', // Only secure in production
     },
     app
   )
