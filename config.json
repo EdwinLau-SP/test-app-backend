@@ -1,8 +1,8 @@
 {
   "CLIENT_ID": "SIx6Zmyq7z63i0CRs3uxKh3BdhSOgL0m",
   "ISSUER_URL": "https://stg-id.singpass.gov.sg",
-  "REDIRECT_URI": "https://test-app-backend-f14x37si5-edwins-projects-1bf89477.vercel.app/callback",
-  "SCOPES": "openid uinfin name",
+  "REDIRECT_URI": "https://test-app-backend-bib7.onrender.com/callback",
+  "SCOPES": "openid",
   "KEYS": {
     "PRIVATE_SIG_KEY": {
       "alg": "ES256",
