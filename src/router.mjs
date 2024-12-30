@@ -84,7 +84,7 @@ router.get('/callback', async function handleSingpassCallback(ctx) {
     console.error(userInfo);
 
     ctx.session.user = { ...tokenSet.claims(), ...userInfo };
-    ctx.redirect('/');
+    ctx.redirect(process.env.FRONTEND_URL || 'https://edwinlau-first-webapp.netlify.app');
   } catch (err) {
     console.error('[ACTUAL ERROR]', err);
     ctx.status = 401;
