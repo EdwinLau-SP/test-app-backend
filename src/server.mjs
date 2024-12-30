@@ -25,7 +25,7 @@ app.use(async (ctx, next) => {
 app.use(logger());
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || 'https://edwinlau-first-webapp.netlify.app',
+    origin: 'https://edwinlau-first-webapp.netlify.app',
     credentials: true,
   })
 );
