@@ -1,7 +1,7 @@
 import config from './config.mjs';
 import { Issuer, generators, custom } from 'openid-client';
 import * as crypto from 'crypto';
-import Router from '@koa/router';
+import Router from 'koa-router';
 
 // This demo uses panva/node-openid-client, an off-the-shelf OIDC client.
 
