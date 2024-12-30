@@ -67,6 +67,7 @@ router.get('/callback', async function handleSingpassCallback(ctx) {
     });
 
     console.error('These are the claims in the ID token:');
+    console.error('Raw ID Token:', tokenSet.id_token);
     console.error(tokenSet.claims());
 
     // Userinfo request (available only to apps with additional allowed scopes, beyond just 'openid').
