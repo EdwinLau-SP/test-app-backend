@@ -57,12 +57,14 @@ router.get('/callback', async function handleSingpassCallback(ctx) {
     console.error('receivedQueryParams', receivedQueryParams);
     const { code_verifier, nonce, state } = ctx.session.auth; // Could possibly be hardcoded.
     console.error('ctx.session.auth', ctx.session.auth);
+    console.error('config.KEYS.PRIVATE_ENC_KEY', config.KEYS.PRIVATE_ENC_KEY);
     // Token request
     const tokenSet = await singpassClient.callback(config.REDIRECT_URI, receivedQueryParams, {
       code_verifier,
       nonce,
       state,
     });
+
     console.error('These are the claims in the ID token:');
     console.error(tokenSet.claims());
 
