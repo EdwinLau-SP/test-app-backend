@@ -4,7 +4,7 @@ dotenv.config(); // Load environment variables
 export default {
   ISSUER_URL: process.env.ISSUER_URL || 'https://stg-id.singpass.gov.sg',
   CLIENT_ID: process.env.CLIENT_ID,
-  REDIRECT_URI: process.env.REDIRECT_URI || 'http://localhost:3000/callback',
+  REDIRECT_URI: process.env.REDIRECT_URI || 'https://test-app-backend-bib7.onrender.com/callback',
   SCOPES: process.env.SCOPES || 'openid uinfin name',
 
   // Private Signing Key
