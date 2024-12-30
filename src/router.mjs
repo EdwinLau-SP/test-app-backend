@@ -12,7 +12,8 @@ const singpassClient = new singpassIssuer.Client(
     client_id: config.CLIENT_ID,
     response_types: ['code'],
     token_endpoint_auth_method: 'private_key_jwt',
-    id_token_signed_response_alg: 'ES256', // Use signed tokens, NOT encrypted
+    id_token_encrypted_response_alg: config.KEYS.PRIVATE_SIG_KEY.alg,
+    id_token_encrypted_response_enc: 'A256CBC-HS512',
     userinfo_encrypted_response_alg: config.KEYS.PRIVATE_ENC_KEY.alg,
     userinfo_encrypted_response_enc: 'A256CBC-HS512',
     userinfo_signed_response_alg: config.KEYS.PRIVATE_SIG_KEY.alg,
@@ -64,10 +65,6 @@ router.get('/callback', async function handleSingpassCallback(ctx) {
       nonce,
       state,
     });
-    //additional line for decryption
-    const decryptedToken = await singpassClient.decryptIdToken(tokenSet.id_token, config.KEYS.PRIVATE_ENC_KEY);
-    console.error('Decrypted ID Token:', decryptedToken);
-    //end of additional line for decryption
 
     console.error('These are the claims in the ID token:');
     console.error('Raw ID Token:', tokenSet.id_token);
