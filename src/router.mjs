@@ -14,9 +14,9 @@ const singpassClient = new singpassIssuer.Client(
     token_endpoint_auth_method: 'private_key_jwt',
     id_token_signed_response_alg: 'ES256', // Use signed tokens, NOT encrypted
     id_token_encrypted_response_alg: config.KEYS.PRIVATE_ENC_KEY.alg, // Algorithm for encryption
-    id_token_encrypted_response_enc: 'A256GCM', // Encryption encoding
+    id_token_encrypted_response_enc: 'A256CBC-HS512', // Encryption encoding
     userinfo_encrypted_response_alg: config.KEYS.PRIVATE_ENC_KEY.alg,
-    userinfo_encrypted_response_enc: 'A256GCM',
+    userinfo_encrypted_response_enc: 'A256CBC-HS512',
     userinfo_signed_response_alg: config.KEYS.PRIVATE_SIG_KEY.alg,
   },
   { keys: [config.KEYS.PRIVATE_SIG_KEY, config.KEYS.PRIVATE_ENC_KEY] }
