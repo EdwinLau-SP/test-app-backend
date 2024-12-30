@@ -11,6 +11,8 @@ export default {
   KEYS: {
     PRIVATE_SIG_KEY: JSON.parse(process.env.PRIVATE_SIG_KEY),
     PRIVATE_ENC_KEY: JSON.parse(process.env.PRIVATE_ENC_KEY),
+    PUBLIC_SIG_KEY: JSON.parse(process.env.PUBLIC_SIG_KEY),
+    PUBLIC_ENC_KEY: JSON.parse(process.env.PUBLIC_ENC_KEY),
   },
 
   validateConfig: () => {
