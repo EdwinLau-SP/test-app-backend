@@ -12,13 +12,15 @@ const singpassClient = new singpassIssuer.Client(
     client_id: config.CLIENT_ID,
     response_types: ['code'],
     token_endpoint_auth_method: 'private_key_jwt',
-    // ID Token Configuration (Signed)
-    id_token_signed_response_alg: 'ES256', // Expect a signed token using ES256
-
-    // Userinfo Configuration (Encrypted)
-    userinfo_encrypted_response_alg: config.KEYS.PRIVATE_ENC_KEY.alg, // Use encryption
-    userinfo_encrypted_response_enc: 'A256CBC-HS512', // Match encryption method
-    userinfo_signed_response_alg: config.KEYS.PRIVATE_SIG_KEY.alg, // Signed userinfo
+    // ID Token Configuration (Encrypted)
+    // ID Token Configuration
+    id_token_signed_response_alg: 'ES256', // For signed ID tokens
+    id_token_encrypted_response_alg: 'ECDH-ES+A256KW', // For encrypted ID tokens
+    id_token_encrypted_response_enc: 'A256CBC-HS512', // Encryption method
+    // Userinfo Configuration
+    userinfo_signed_response_alg: 'ES256', // For signed userinfo responses
+    userinfo_encrypted_response_alg: 'ECDH-ES+A256KW', // For encrypted userinfo responses
+    userinfo_encrypted_response_enc: 'A256CBC-HS512', // Encryption method
   },
   { keys: [config.KEYS.PRIVATE_SIG_KEY, config.KEYS.PRIVATE_ENC_KEY] }
 );
