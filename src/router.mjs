@@ -8,6 +8,7 @@ const router = new Router();
 // Authorization endpoint
 router.get('/login', async (ctx) => {
   try {
+    console.log('Start of /login');
     const issuer = await Issuer.discover(config.ISSUER_URL);
     const client = new issuer.Client(
       {
@@ -38,6 +39,8 @@ router.get('/login', async (ctx) => {
       scope: config.SCOPES,
     });
 
+    console.log('End of /login');
+
     ctx.redirect(authorizationUrl);
   } catch (err) {
     console.error('Login Error:', err);
@@ -48,6 +51,7 @@ router.get('/login', async (ctx) => {
 // Callback endpoint
 router.get('/callback', async (ctx) => {
   try {
+    console.log('Start of /callback');
     const issuer = await Issuer.discover(config.ISSUER_URL);
     const client = new issuer.Client(
       {
@@ -75,6 +79,7 @@ router.get('/callback', async (ctx) => {
     console.log('Userinfo:', userinfo);
 
     ctx.body = userinfo; // Send user info as response
+    console.log('End of /callback');
   } catch (err) {
     console.error('Callback Error:', err);
     ctx.body = 'Failed to process callback.';
@@ -87,11 +92,13 @@ router.get('/health', (ctx) => {
 });
 
 router.get('/user', function getUser(ctx) {
+  console.log('Start of /user');
   if (ctx.session.user) {
     ctx.body = ctx.session.user;
   } else {
     ctx.status = 401;
   }
+  console.log('End of /user');
 });
 
 router.get('/logout', function handleLogout(ctx) {
