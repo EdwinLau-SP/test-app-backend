@@ -13,8 +13,6 @@ const singpassClient = new singpassIssuer.Client(
     response_types: ['code'],
     token_endpoint_auth_method: 'private_key_jwt',
     id_token_signed_response_alg: 'ES256', // Use signed tokens, NOT encrypted
-    id_token_encrypted_response_alg: config.KEYS.PRIVATE_ENC_KEY.alg, // Algorithm for encryption
-    id_token_encrypted_response_enc: 'A256CBC-HS512', // Encryption encoding
     userinfo_encrypted_response_alg: config.KEYS.PRIVATE_ENC_KEY.alg,
     userinfo_encrypted_response_enc: 'A256CBC-HS512',
     userinfo_signed_response_alg: config.KEYS.PRIVATE_SIG_KEY.alg,
@@ -65,7 +63,6 @@ router.get('/callback', async function handleSingpassCallback(ctx) {
       code_verifier,
       nonce,
       state,
-      key: config.KEYS.PRIVATE_ENC_KEY, // Decrypt using the private encryption key
     });
     //additional line for decryption
     const decryptedToken = await singpassClient.decryptIdToken(tokenSet.id_token, config.KEYS.PRIVATE_ENC_KEY);
