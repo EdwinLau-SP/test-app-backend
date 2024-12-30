@@ -110,7 +110,7 @@ router.get('/user', function getUser(ctx) {
 
 router.get('/logout', function handleLogout(ctx) {
   ctx.session = null;
-  ctx.redirect('/');
+  ctx.redirect(process.env.FRONTEND_URL || 'https://edwinlau-first-webapp.netlify.app/');
 });
 
 export { router };
