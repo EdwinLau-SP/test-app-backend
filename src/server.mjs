@@ -32,20 +32,12 @@ app.use(logger());
 
 // start of testing area
 app.use(
-  session(
-    {
-      key: 'koa:sess',
-      maxAge: 86400000, // 1-day session expiry
-      overwrite: true,
-      httpOnly: true,
-      signed: true,
-      rolling: false,
-      renew: false,
-      secure: process.env.NODE_ENV === 'production', // Secure cookies for production
-      sameSite: 'none', // Enable cross-site cookies
-    },
-    app
-  )
+  cors({
+    origin: 'https://edwinlau-first-webapp.netlify.app', // Explicitly allow your frontend URL
+    credentials: true, // Allow cookies and credentials
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
+    methods: ['GET', 'POST', 'OPTIONS'], // Allow specific methods
+  })
 );
 // end of testing area
 
@@ -67,10 +59,10 @@ app.use(
   session(
     {
       store: createInMemorySessionStore(),
-      sameSite: 'lax',
+      sameSite: 'none',
       httpOnly: true,
-      secure: false,
-      // secure: process.env.NODE_ENV === 'production', // Only secure in production
+      // secure: false,
+      secure: process.env.NODE_ENV === 'production', // Only secure in production
     },
     app
   )
