@@ -102,6 +102,10 @@ router.get('/user', function getUser(ctx) {
   } else {
     ctx.status = 401;
   }
+  // start temp
+  console.log('Session ID:', ctx.cookies.get('koa:sess'));
+  console.log('Session Data:', ctx.session);
+  // end temp
 });
 
 router.get('/logout', function handleLogout(ctx) {

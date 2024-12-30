@@ -23,12 +23,31 @@ app.use(async (ctx, next) => {
 
 // Enable logging and CORS
 app.use(logger());
+// app.use(
+//   cors({
+//     origin: 'https://edwinlau-first-webapp.netlify.app',
+//     credentials: true,
+//   })
+// );
+
+// start of testing area
 app.use(
-  cors({
-    origin: 'https://edwinlau-first-webapp.netlify.app',
-    credentials: true,
-  })
+  session(
+    {
+      key: 'koa:sess',
+      maxAge: 86400000, // 1-day session expiry
+      overwrite: true,
+      httpOnly: true,
+      signed: true,
+      rolling: false,
+      renew: false,
+      secure: process.env.NODE_ENV === 'production', // Secure cookies for production
+      sameSite: 'none', // Enable cross-site cookies
+    },
+    app
+  )
 );
+// end of testing area
 
 app.proxy = true; // Trust proxy headers
 
