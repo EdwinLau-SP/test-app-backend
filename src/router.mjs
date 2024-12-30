@@ -56,6 +56,7 @@ router.get('/callback', async function handleSingpassCallback(ctx) {
     const receivedQueryParams = ctx.request.query;
     const { code_verifier, nonce, state } = ctx.session.auth;
 
+    console.error('Error test');
     // Token request
     const tokenSet = await singpassClient.callback(config.REDIRECT_URI, receivedQueryParams, {
       code_verifier,
@@ -73,7 +74,7 @@ router.get('/callback', async function handleSingpassCallback(ctx) {
     ctx.session.user = { ...tokenSet.claims(), ...userInfo };
     ctx.redirect('/');
   } catch (err) {
-    console.error(err);
+    console.error('My error test:', err);
     ctx.status = 401;
   }
 });
