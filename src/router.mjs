@@ -54,27 +54,27 @@ router.get('/login', async function handleLogin(ctx) {
 router.get('/callback', async function handleSingpassCallback(ctx) {
   try {
     const receivedQueryParams = ctx.request.query;
-    const { code_verifier, nonce, state } = ctx.session.auth;
-
-    console.error('Error test');
+    console.error('receivedQueryParams', receivedQueryParams);
+    const { code_verifier, nonce, state } = ctx.session.auth; // Could possibly be hardcoded.
+    console.error('ctx.session.auth', ctx.session.auth);
     // Token request
     const tokenSet = await singpassClient.callback(config.REDIRECT_URI, receivedQueryParams, {
       code_verifier,
       nonce,
       state,
     });
-    console.log('These are the claims in the ID token:');
-    console.log(tokenSet.claims());
+    console.error('These are the claims in the ID token:');
+    console.error(tokenSet.claims());
 
     // Userinfo request (available only to apps with additional allowed scopes, beyond just 'openid').
     const userInfo = await singpassClient.userinfo(tokenSet);
-    console.log('This is the user info returned:');
-    console.log(userInfo);
+    console.error('This is the user info returned:');
+    console.error(userInfo);
 
     ctx.session.user = { ...tokenSet.claims(), ...userInfo };
     ctx.redirect('/');
   } catch (err) {
-    console.error('My error test:', err);
+    console.error('[ACTUAL ERROR]', err);
     ctx.status = 401;
   }
 });
