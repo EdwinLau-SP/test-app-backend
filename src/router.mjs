@@ -86,4 +86,17 @@ router.get('/health', (ctx) => {
   ctx.body = { status: 'ok' };
 });
 
+router.get('/user', function getUser(ctx) {
+  if (ctx.session.user) {
+    ctx.body = ctx.session.user;
+  } else {
+    ctx.status = 401;
+  }
+});
+
+router.get('/logout', function handleLogout(ctx) {
+  ctx.session = null;
+  ctx.redirect('/');
+});
+
 export { router };
