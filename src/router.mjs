@@ -20,7 +20,7 @@ const singpassClient = new singpassIssuer.Client(
     // Userinfo Configuration
     userinfo_signed_response_alg: 'ES256', // For signed userinfo responses
     userinfo_encrypted_response_alg: 'ECDH-ES+A256KW', // For encrypted userinfo responses
-    userinfo_encrypted_response_enc: 'A256CBC-HS512', // Encryption method
+    userinfo_encrypted_response_enc: 'A256GCM', // Encryption method
   },
   { keys: [config.KEYS.PRIVATE_SIG_KEY, config.KEYS.PRIVATE_ENC_KEY] }
 );
