@@ -63,13 +63,18 @@ router.get('/callback', async function handleSingpassCallback(ctx) {
       code_verifier,
       nonce,
       state,
+      key: config.KEYS.PRIVATE_ENC_KEY, // Decrypt using the private encryption key
     });
 
     console.error('These are the claims in the ID token:');
     console.error(tokenSet.claims());
 
     // Userinfo request (available only to apps with additional allowed scopes, beyond just 'openid').
-    const userInfo = await singpassClient.userinfo(tokenSet);
+    // const userInfo = await singpassClient.userinfo(tokenSet); // -- OG
+    const userInfo = await singpassClient.userinfo(tokenSet.access_token, {
+      key: config.KEYS.PRIVATE_ENC_KEY, // Decrypt using the private encryption key
+    });
+
     console.error('This is the user info returned:');
     console.error(userInfo);
 
