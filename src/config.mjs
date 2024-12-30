@@ -9,8 +9,8 @@ export default {
 
   // Private Signing Key
   KEYS: {
-    PRIVATE_SIG_KEY: process.env.PRIVATE_SIG_KEY,
-    PRIVATE_ENC_KEY: process.env.PRIVATE_ENC_KEY,
+    PRIVATE_SIG_KEY: JSON.parse(process.env.PRIVATE_SIG_KEY),
+    PRIVATE_ENC_KEY: JSON.parse(process.env.PRIVATE_ENC_KEY),
   },
 
   validateConfig: () => {
